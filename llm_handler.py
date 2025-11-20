@@ -4,6 +4,9 @@ import os
 import json
 from typing import Dict, Any, Optional
 from openai import OpenAI
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class LLMHandler:
