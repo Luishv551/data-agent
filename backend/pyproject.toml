@@ -1,13 +1,15 @@
 [project]
-name = "data-agent"
+name = "backend"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "dotenv>=0.9.9",
+    "fastapi>=0.121.3",
     "openai>=2.8.1",
     "pandas>=2.3.3",
-    "plotly>=6.5.0",
-    "streamlit>=1.51.0",
+    "pydantic>=2.12.4",
+    "pydantic-settings>=2.12.0",
+    "python-dotenv>=1.2.1",
+    "uvicorn[standard]>=0.38.0",
 ]
