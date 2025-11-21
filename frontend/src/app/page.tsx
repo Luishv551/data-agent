@@ -1,30 +1,35 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { getDataSummary, processQuery } from '@/lib/api'
-import type { DataSummary, QueryResponse } from '@/types'
+import { getDataSummary, getDashboardData, processQuery } from '@/lib/api'
+import type { DataSummary, DashboardData, QueryResponse } from '@/types'
 import DataSummaryComponent from '@/components/DataSummary'
+import DashboardCharts from '@/components/DashboardCharts'
 import QueryInput from '@/components/QueryInput'
 import ExampleQuestions from '@/components/ExampleQuestions'
 import ResultsDisplay from '@/components/ResultsDisplay'
 
 export default function Home() {
   const [summary, setSummary] = useState<DataSummary | null>(null)
+  const [dashboard, setDashboard] = useState<DashboardData | null>(null)
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState<QueryResponse | null>(null)
   const [error, setError] = useState<string | null>(null)
-  const [showSummary, setShowSummary] = useState(false)
 
   useEffect(() => {
-    loadSummary()
+    loadData()
   }, [])
 
-  const loadSummary = async () => {
+  const loadData = async () => {
     try {
-      const data = await getDataSummary()
-      setSummary(data)
+      const [summaryData, dashboardData] = await Promise.all([
+        getDataSummary(),
+        getDashboardData()
+      ])
+      setSummary(summaryData)
+      setDashboard(dashboardData)
     } catch (err) {
-      console.error('Failed to load summary:', err)
+      console.error('Failed to load data:', err)
     }
   }
 
@@ -55,18 +60,9 @@ export default function Home() {
           </p>
         </div>
 
-        {summary && (
-          <div className="mb-8">
-            <button
-              onClick={() => setShowSummary(!showSummary)}
-              className="btn-secondary text-sm mb-4"
-            >
-              {showSummary ? 'Hide' : 'Show'} Dataset Summary
-            </button>
+        {summary && <DataSummaryComponent summary={summary} />}
 
-            {showSummary && <DataSummaryComponent summary={summary} />}
-          </div>
-        )}
+        {dashboard && <DashboardCharts data={dashboard} />}
 
         <div className="card mb-8">
           <h2 className="text-xl font-semibold text-primary mb-4">

@@ -24,11 +24,13 @@ export default function ResultsDisplay({ result }: ResultsDisplayProps) {
   return (
     <div className="space-y-6">
       <div className="card">
-        <div className="flex items-start gap-4 mb-4">
-          <div className="flex-1">
-            <h3 className="text-lg font-semibold text-primary mb-2">Results</h3>
-            <p className="text-secondary">{result.explanation}</p>
+        <h3 className="text-lg font-semibold text-primary mb-4">Results</h3>
+
+        <div className="bg-surface p-4 rounded-lg mb-6">
+          <div className="text-xs uppercase tracking-wide text-secondary font-semibold mb-2">
+            Reasoning Summary
           </div>
+          <p className="text-primary">{result.explanation}</p>
         </div>
 
         {result.metric_value !== null && (

@@ -7,13 +7,21 @@ from pydantic import BaseModel, Field
 class DataSummaryResponse(BaseModel):
     """Response model for data summary."""
 
-    total_rows: int = Field(..., description="Total number of rows in dataset")
-    date_range: Dict[str, str] = Field(..., description="Start and end dates")
     total_tpv: float = Field(..., description="Total Payment Volume")
     average_ticket: float = Field(..., description="Average ticket value")
-    unique_entities: int = Field(..., description="Number of unique entities")
-    unique_products: int = Field(..., description="Number of unique products")
-    unique_merchants: float = Field(..., description="Total number of merchants")
+
+
+class DashboardResponse(BaseModel):
+    """Response model for dashboard visualizations."""
+
+    tpv_by_product: List[Dict[str, Any]] = Field(..., description="TPV grouped by product")
+    tpv_by_entity: List[Dict[str, Any]] = Field(..., description="TPV grouped by entity")
+    tpv_by_payment_method: List[Dict[str, Any]] = Field(..., description="TPV grouped by payment method")
+    avg_ticket_by_entity: List[Dict[str, Any]] = Field(..., description="Average ticket by entity")
+    avg_ticket_by_product: List[Dict[str, Any]] = Field(..., description="Average ticket by product")
+    avg_ticket_by_payment_method: List[Dict[str, Any]] = Field(..., description="Average ticket by payment method")
+    tpv_by_price_tier: List[Dict[str, Any]] = Field(..., description="TPV by price tier")
+    tpv_by_installments: List[Dict[str, Any]] = Field(..., description="TPV by installments")
 
 
 class QueryIntent(BaseModel):

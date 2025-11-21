@@ -8,10 +8,12 @@ interface ExampleQuestionsProps {
 const EXAMPLE_QUESTIONS = [
   'Which product has the highest TPV?',
   'How do weekdays influence TPV?',
-  'Which segment has the highest average ticket?',
-  'What is the most used anticipation method by businesses?',
-  'Compare TPV by payment method',
-  'What is the total TPV for credit card transactions?',
+  'Which segment has the highest average TPV?',
+  'Which segment has the highest Average Ticket?',
+  'Which anticipation method is most used by individuals?',
+  'Which anticipation method is most used by businesses?',
+  'How do installments impact transaction volume?',
+  'Compare price tier performance by TPV',
 ]
 
 export default function ExampleQuestions({ onSelect, disabled }: ExampleQuestionsProps) {
