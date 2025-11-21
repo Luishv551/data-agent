@@ -8,17 +8,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: {
-          DEFAULT: '#1A1A1A',
-          light: '#2C2C2C',
+        dark: {
+          DEFAULT: '#0f0f0f',
+          100: '#1a1a1a',
+          200: '#252525',
+          300: '#333333',
+          400: '#444444',
         },
-        secondary: {
-          DEFAULT: '#666666',
-          light: '#999999',
-        },
-        surface: {
-          DEFAULT: '#F5F5F5',
-          dark: '#E0E0E0',
+        accent: {
+          DEFAULT: '#4b5563',
+          light: '#6b7280',
         },
       },
       fontFamily: {

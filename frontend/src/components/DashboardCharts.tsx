@@ -24,6 +24,12 @@ const formatCurrency = (value: number) =>
     maximumFractionDigits: 1,
   }).format(value)
 
+const formatTooltipValue = (value: number) =>
+  new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  }).format(value)
+
 type TPVGrouping = 'product' | 'entity' | 'payment_method'
 type InsightGrouping = 'price_tier' | 'installments'
 
@@ -67,20 +73,30 @@ export default function DashboardCharts({ data }: DashboardChartsProps) {
   const ticketChart = getTicketData(ticketGrouping)
   const insightChart = getInsightData(insightGrouping)
 
+  const tooltipStyle = {
+    backgroundColor: '#1f2937',
+    border: '1px solid #374151',
+    borderRadius: '8px',
+    fontSize: '14px',
+    color: '#f3f4f6'
+  }
+
+  const cursorStyle = { fill: '#374151' }
+
   return (
     <div className="space-y-6 mb-8">
-      <h2 className="text-xl font-semibold text-primary">Business Insights</h2>
+      <h2 className="text-xl font-semibold text-white">Business Insights</h2>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="card">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-semibold text-secondary uppercase tracking-wide">
+            <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">
               TPV Analysis
             </h3>
             <select
               value={tpvGrouping}
               onChange={(e) => setTpvGrouping(e.target.value as TPVGrouping)}
-              className="text-sm border border-surface-dark rounded px-2 py-1 bg-white"
+              className="text-sm border border-gray-600 rounded px-2 py-1 bg-gray-800 text-gray-200"
             >
               <option value="product">by Product</option>
               <option value="entity">by Entity</option>
@@ -90,11 +106,17 @@ export default function DashboardCharts({ data }: DashboardChartsProps) {
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={tpvChart.data} layout="vertical">
-                <CartesianGrid strokeDasharray="3 3" stroke="#E0E0E0" />
-                <XAxis type="number" tickFormatter={formatCurrency} tick={{ fontSize: 11 }} />
-                <YAxis dataKey={tpvChart.key} type="category" tick={{ fontSize: 12 }} width={100} />
-                <Tooltip formatter={(value: number) => formatCurrency(value)} />
-                <Bar dataKey="amount_transacted" fill="#1A1A1A" name="TPV" />
+                <defs>
+                  <linearGradient id="tpvGradient" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="#4b5563" />
+                    <stop offset="100%" stopColor="#6b7280" />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                <XAxis type="number" tickFormatter={formatCurrency} tick={{ fontSize: 11, fill: '#9ca3af' }} stroke="#4b5563" />
+                <YAxis dataKey={tpvChart.key} type="category" tick={{ fontSize: 12, fill: '#9ca3af' }} width={100} stroke="#4b5563" />
+                <Tooltip formatter={(value: number) => formatTooltipValue(value)} contentStyle={tooltipStyle} cursor={cursorStyle} />
+                <Bar dataKey="amount_transacted" fill="url(#tpvGradient)" name="TPV" radius={[0, 4, 4, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -102,13 +124,13 @@ export default function DashboardCharts({ data }: DashboardChartsProps) {
 
         <div className="card">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-semibold text-secondary uppercase tracking-wide">
+            <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">
               Average Ticket
             </h3>
             <select
               value={ticketGrouping}
               onChange={(e) => setTicketGrouping(e.target.value as TPVGrouping)}
-              className="text-sm border border-surface-dark rounded px-2 py-1 bg-white"
+              className="text-sm border border-gray-600 rounded px-2 py-1 bg-gray-800 text-gray-200"
             >
               <option value="product">by Product</option>
               <option value="entity">by Entity</option>
@@ -118,11 +140,17 @@ export default function DashboardCharts({ data }: DashboardChartsProps) {
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={ticketChart.data} layout="vertical">
-                <CartesianGrid strokeDasharray="3 3" stroke="#E0E0E0" />
-                <XAxis type="number" tickFormatter={formatCurrency} tick={{ fontSize: 11 }} />
-                <YAxis dataKey={ticketChart.key} type="category" tick={{ fontSize: 12 }} width={100} />
-                <Tooltip formatter={(value: number) => formatCurrency(value)} />
-                <Bar dataKey="average_ticket" fill="#666666" name="Avg Ticket" />
+                <defs>
+                  <linearGradient id="ticketGradient" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="#4b5563" />
+                    <stop offset="100%" stopColor="#6b7280" />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                <XAxis type="number" tickFormatter={formatCurrency} tick={{ fontSize: 11, fill: '#9ca3af' }} stroke="#4b5563" />
+                <YAxis dataKey={ticketChart.key} type="category" tick={{ fontSize: 12, fill: '#9ca3af' }} width={100} stroke="#4b5563" />
+                <Tooltip formatter={(value: number) => formatTooltipValue(value)} contentStyle={tooltipStyle} cursor={cursorStyle} />
+                <Bar dataKey="average_ticket" fill="url(#ticketGradient)" name="Avg Ticket" radius={[0, 4, 4, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -130,13 +158,13 @@ export default function DashboardCharts({ data }: DashboardChartsProps) {
 
         <div className="card lg:col-span-2">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-semibold text-secondary uppercase tracking-wide">
+            <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">
               Transactional Insights
             </h3>
             <select
               value={insightGrouping}
               onChange={(e) => setInsightGrouping(e.target.value as InsightGrouping)}
-              className="text-sm border border-surface-dark rounded px-2 py-1 bg-white"
+              className="text-sm border border-gray-600 rounded px-2 py-1 bg-gray-800 text-gray-200"
             >
               <option value="price_tier">by Price Tier</option>
               <option value="installments">by Installments</option>
@@ -145,11 +173,17 @@ export default function DashboardCharts({ data }: DashboardChartsProps) {
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={insightChart.data}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#E0E0E0" />
-                <XAxis dataKey={insightChart.key} tick={{ fontSize: 12 }} />
-                <YAxis tickFormatter={formatCurrency} tick={{ fontSize: 11 }} />
-                <Tooltip formatter={(value: number) => formatCurrency(value)} />
-                <Bar dataKey="amount_transacted" fill="#1A1A1A" name="TPV" />
+                <defs>
+                  <linearGradient id="insightGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#6b7280" />
+                    <stop offset="100%" stopColor="#4b5563" />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                <XAxis dataKey={insightChart.key} tick={{ fontSize: 12, fill: '#9ca3af' }} stroke="#4b5563" />
+                <YAxis tickFormatter={formatCurrency} tick={{ fontSize: 11, fill: '#9ca3af' }} stroke="#4b5563" width={80} />
+                <Tooltip formatter={(value: number) => formatTooltipValue(value)} contentStyle={tooltipStyle} cursor={cursorStyle} />
+                <Bar dataKey="amount_transacted" fill="url(#insightGradient)" name="TPV" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>

@@ -19,10 +19,10 @@ const EXAMPLE_QUESTIONS = [
 export default function ExampleQuestions({ onSelect, disabled }: ExampleQuestionsProps) {
   return (
     <div className="mb-8">
-      <h3 className="text-sm font-semibold text-secondary mb-3 uppercase tracking-wide">
+      <h3 className="text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wide">
         Example Questions
       </h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
         {EXAMPLE_QUESTIONS.map((question, index) => (
           <button
             key={index}

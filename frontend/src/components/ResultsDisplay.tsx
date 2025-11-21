@@ -24,21 +24,21 @@ export default function ResultsDisplay({ result }: ResultsDisplayProps) {
   return (
     <div className="space-y-6">
       <div className="card">
-        <h3 className="text-lg font-semibold text-primary mb-4">Results</h3>
+        <h3 className="text-lg font-semibold text-white mb-4">Results</h3>
 
-        <div className="bg-surface p-4 rounded-lg mb-6">
-          <div className="text-xs uppercase tracking-wide text-secondary font-semibold mb-2">
+        <div className="bg-dark-200 p-4 rounded-lg mb-6">
+          <div className="text-xs uppercase tracking-wide text-gray-400 font-semibold mb-2">
             Reasoning Summary
           </div>
-          <p className="text-primary">{result.explanation}</p>
+          <p className="text-gray-200">{result.explanation}</p>
         </div>
 
         {result.metric_value !== null && (
-          <div className="bg-surface p-4 rounded-lg mb-6">
-            <div className="text-xs uppercase tracking-wide text-secondary font-semibold mb-1">
+          <div className="bg-dark-200 p-4 rounded-lg mb-6 border border-dark-300">
+            <div className="text-xs uppercase tracking-wide text-gray-400 font-semibold mb-1">
               {result.metric_name}
             </div>
-            <div className="text-3xl font-bold text-primary">
+            <div className="text-3xl font-bold text-white">
               {formatValue(result.metric_value, result.query_intent.metric)}
             </div>
           </div>
@@ -79,10 +79,10 @@ export default function ResultsDisplay({ result }: ResultsDisplayProps) {
       </div>
 
       <details className="card">
-        <summary className="cursor-pointer text-sm font-semibold text-secondary uppercase tracking-wide">
+        <summary className="cursor-pointer text-sm font-semibold text-gray-400 uppercase tracking-wide">
           Query Details
         </summary>
-        <pre className="mt-4 p-4 bg-surface rounded text-xs overflow-x-auto">
+        <pre className="mt-4 p-4 bg-dark-200 rounded-lg text-xs overflow-x-auto text-gray-300">
           {JSON.stringify(result.query_intent, null, 2)}
         </pre>
       </details>

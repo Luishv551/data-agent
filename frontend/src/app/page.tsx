@@ -49,23 +49,35 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-white">
-      <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mb-12">
-          <h1 className="text-4xl font-bold text-primary mb-2">
-            CloudWalk Data Agent
-          </h1>
-          <p className="text-secondary">
-            Ask questions about your transaction data in natural language
-          </p>
+    <main className="min-h-screen bg-dark">
+      <header className="relative overflow-hidden mb-8">
+        <div className="absolute inset-0 bg-gradient-to-r from-dark-300 via-dark-200 to-dark opacity-90" />
+        <div className="relative max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-6">
+            <img
+              src="/logo.png"
+              alt="CloudWalk"
+              className="h-10 w-auto brightness-0 invert"
+            />
+            <div>
+              <h1 className="text-2xl font-bold text-white">
+                Data Agent
+              </h1>
+              <p className="text-gray-400 text-sm">
+                Natural language analytics for transaction data
+              </p>
+            </div>
+          </div>
         </div>
+      </header>
 
+      <div className="max-w-7xl mx-auto px-4 pb-12 sm:px-6 lg:px-8">
         {summary && <DataSummaryComponent summary={summary} />}
 
         {dashboard && <DashboardCharts data={dashboard} />}
 
         <div className="card mb-8">
-          <h2 className="text-xl font-semibold text-primary mb-4">
+          <h2 className="text-xl font-semibold text-white mb-4">
             Ask Your Question
           </h2>
 
@@ -75,10 +87,10 @@ export default function Home() {
         </div>
 
         {error && (
-          <div className="card bg-red-50 border-red-200 mb-8">
+          <div className="card bg-red-900/20 border-red-800 mb-8">
             <div className="flex items-start gap-3">
               <svg
-                className="w-5 h-5 text-red-500 mt-0.5"
+                className="w-5 h-5 text-red-400 mt-0.5"
                 fill="none"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -89,8 +101,8 @@ export default function Home() {
                 <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <div>
-                <h3 className="font-semibold text-red-900 mb-1">Error</h3>
-                <p className="text-red-700 text-sm">{error}</p>
+                <h3 className="font-semibold text-red-300 mb-1">Error</h3>
+                <p className="text-red-400 text-sm">{error}</p>
               </div>
             </div>
           </div>
@@ -100,8 +112,8 @@ export default function Home() {
 
         {loading && (
           <div className="card text-center py-12">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary mb-4"></div>
-            <p className="text-secondary">Processing your question...</p>
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-accent mb-4"></div>
+            <p className="text-gray-400">Processing your question...</p>
           </div>
         )}
       </div>
