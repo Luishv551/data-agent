@@ -36,3 +36,36 @@ export interface QueryResponse {
 export interface QueryRequest {
   question: string
 }
+
+export interface DailySummary {
+  date: string
+  metric: string
+  metric_label: string
+  value_current: number
+  var_d1: number
+  var_d7: number
+  var_d30: number
+}
+
+export interface Alert {
+  type: 'warning' | 'info'
+  segment: string
+  segment_value: string
+  metric: string
+  variation: number
+  message: string
+}
+
+export interface TopInsight {
+  type: 'largest_drop' | 'main_contributor' | 'highest_growth'
+  label: string
+  segment_type: string
+  value: number
+  variation: number
+}
+
+export interface AlertsResponse {
+  daily_summary: DailySummary
+  alerts: Alert[]
+  top_insights: TopInsight[]
+}

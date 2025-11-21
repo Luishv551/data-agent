@@ -58,3 +58,44 @@ class ErrorResponse(BaseModel):
     """Response model for errors."""
 
     detail: str = Field(..., description="Error message")
+
+
+class DailySummary(BaseModel):
+    """Daily summary with variations."""
+
+    date: str = Field(..., description="Date of the summary")
+    metric: str = Field(..., description="Metric type: tpv, average_ticket, transactions")
+    metric_label: str = Field(..., description="Human-readable metric label")
+    value_current: float = Field(..., description="Current value for the metric")
+    var_d1: float = Field(..., description="Variation vs D-1 (%)")
+    var_d7: float = Field(..., description="Variation vs D-7 (%)")
+    var_d30: float = Field(..., description="Variation vs D-30 (%)")
+
+
+class Alert(BaseModel):
+    """Anomaly alert for a specific segment."""
+
+    type: str = Field(..., description="Alert type: warning or info")
+    segment: str = Field(..., description="Segment name (product, entity, etc)")
+    segment_value: str = Field(..., description="Segment value")
+    metric: str = Field(..., description="Metric name (tpv, average_ticket)")
+    variation: float = Field(..., description="Variation percentage")
+    message: str = Field(..., description="Human-readable alert message")
+
+
+class TopInsight(BaseModel):
+    """Top insight for a specific period."""
+
+    type: str = Field(..., description="Insight type: largest_drop, main_contributor, highest_growth")
+    label: str = Field(..., description="Segment label (e.g., 'pix', 'credit')")
+    segment_type: str = Field(..., description="Type of segment (product, payment_method, entity)")
+    value: float = Field(..., description="Absolute value (TPV or Average Ticket)")
+    variation: float = Field(..., description="Variation percentage")
+
+
+class AlertsResponse(BaseModel):
+    """Response model for alerts endpoint."""
+
+    daily_summary: DailySummary = Field(..., description="Daily KPI summary")
+    alerts: List[Alert] = Field(..., description="List of active alerts")
+    top_insights: List[TopInsight] = Field(..., description="Top 3 insights for selected period")

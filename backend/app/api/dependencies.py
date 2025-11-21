@@ -5,6 +5,7 @@ from app.core.config import settings
 from app.core.data_handler import DataHandler
 from app.core.llm_handler import LLMHandler
 from app.core.query_executor import QueryExecutor
+from app.core.alerts_handler import AlertsHandler
 
 
 @lru_cache()
@@ -44,3 +45,13 @@ def get_query_executor() -> QueryExecutor:
     """
     data_handler = get_data_handler()
     return QueryExecutor(data_handler)
+
+
+def get_alerts_handler() -> AlertsHandler:
+    """Get AlertsHandler instance.
+
+    Returns:
+        AlertsHandler instance with DataHandler dependency
+    """
+    data_handler = get_data_handler()
+    return AlertsHandler(data_handler)

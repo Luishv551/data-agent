@@ -1,17 +1,19 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { getDataSummary, getDashboardData, processQuery } from '@/lib/api'
-import type { DataSummary, DashboardData, QueryResponse } from '@/types'
+import { getDataSummary, getDashboardData, processQuery, getAlerts } from '@/lib/api'
+import type { DataSummary, DashboardData, QueryResponse, AlertsResponse } from '@/types'
 import DataSummaryComponent from '@/components/DataSummary'
 import DashboardCharts from '@/components/DashboardCharts'
 import QueryInput from '@/components/QueryInput'
 import ExampleQuestions from '@/components/ExampleQuestions'
 import ResultsDisplay from '@/components/ResultsDisplay'
+import AlertsPanel from '@/components/AlertsPanel'
 
 export default function Home() {
   const [summary, setSummary] = useState<DataSummary | null>(null)
   const [dashboard, setDashboard] = useState<DashboardData | null>(null)
+  const [alerts, setAlerts] = useState<AlertsResponse | null>(null)
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState<QueryResponse | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -30,6 +32,13 @@ export default function Home() {
       setDashboard(dashboardData)
     } catch (err) {
       console.error('Failed to load data:', err)
+    }
+
+    try {
+      const alertsData = await getAlerts('d30', 'tpv')
+      setAlerts(alertsData)
+    } catch (err) {
+      console.error('Failed to load alerts:', err)
     }
   }
 
@@ -73,6 +82,8 @@ export default function Home() {
 
       <div className="max-w-7xl mx-auto px-4 pb-12 sm:px-6 lg:px-8">
         {summary && <DataSummaryComponent summary={summary} />}
+
+        {alerts && <AlertsPanel alertsData={alerts} />}
 
         {dashboard && <DashboardCharts data={dashboard} />}
 

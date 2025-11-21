@@ -3,7 +3,8 @@
     "allow": [
       "Bash(tree:*)",
       "Bash(cat:*)",
-      "Bash(cd:*)"
+      "Bash(cd:*)",
+      "Bash(python -m py_compile:*)"
     ],
     "deny": [],
     "ask": []
