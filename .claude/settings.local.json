@@ -4,7 +4,11 @@
       "Bash(tree:*)",
       "Bash(cat:*)",
       "Bash(cd:*)",
-      "Bash(python -m py_compile:*)"
+      "Bash(python -m py_compile:*)",
+      "Bash(npm run dev:*)",
+      "Bash(source:*)",
+      "Bash(. .venv/Scripts/activate)",
+      "Bash(uvicorn:*)"
     ],
     "deny": [],
     "ask": []

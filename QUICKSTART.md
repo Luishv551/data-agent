@@ -1,81 +1,67 @@
 # Quick Start
 
-## Pré-requisitos
+## Prerequisites
 
 - Python 3.12+
 - Node.js 18+
-- uv (gerenciador Python)
 - OpenAI API key
 
-## Setup Backend
+## Backend Setup
 
+**Install uv** (if not already installed):
+```bash
+pip install uv
+```
+
+**Setup:**
 ```bash
 cd backend
 
-# Criar e ativar ambiente virtual
-python -m venv .venv
-.venv\Scripts\activate  # Windows
-# source .venv/bin/activate  # Linux/Mac
+# Create virtual environment
+uv venv
 
-# Instalar dependências
-uv add fastapi "uvicorn[standard]" pandas openai pydantic-settings python-dotenv
+# Activate virtual environment
+.venv\Scripts\activate       # Windows
 
-# Configurar .env
-# Editar backend/.env e adicionar:
-# OPENAI_API_KEY=sua_chave_aqui
+# Install dependencies
+uv sync
 
-# Rodar servidor
+# Configure environment variables
+# Create .env file with: OPENAI_API_KEY=your_key_here
+
+# Start development server
 uv run uvicorn app.main:app --reload
 ```
 
-Backend: `http://localhost:8000`
-API Docs: `http://localhost:8000/api/docs`
+- Backend: http://localhost:8000
+- API Docs: http://localhost:8000/api/docs
 
-## Setup Frontend
+## Frontend Setup
 
 ```bash
 cd frontend
 
-# Instalar dependências
+# Install dependencies
 npm install
 
-# Rodar dev server
+# Start development server
 npm run dev
 ```
 
-Frontend: `http://localhost:3000`
+- Frontend: http://localhost:3000
 
-## Testar
+## Testing
 
-Abra `http://localhost:3000` e pergunte:
+Open http://localhost:3000 and try:
 - "Which product has the highest TPV?"
 - "How do weekdays influence TPV?"
 - "Which segment has the highest average ticket?"
 
-## Estrutura
-
-```
-data-agent/
-├── backend/
-│   ├── app/              # FastAPI
-│   ├── .venv/           # Python env
-│   ├── .env             # Variáveis
-│   └── pyproject.toml   # Config uv
-│
-├── frontend/
-│   ├── src/             # Next.js
-│   └── package.json     # Config npm
-│
-└── data/
-    └── transactions.csv
-```
-
 ## Troubleshooting
 
-**Backend não inicia:**
-- Verifique se `.env` tem `OPENAI_API_KEY`
-- Certifique-se que `data/transactions.csv` existe
+**Backend won't start:**
+- Verify `.env` contains `OPENAI_API_KEY`
+- Ensure `data/transactions.csv` exists
 
-**Frontend não conecta:**
-- Backend deve estar rodando em `localhost:8000`
-- Verifique CORS em `backend/app/core/config.py`
+**Frontend can't connect:**
+- Backend must be running on `localhost:8000`
