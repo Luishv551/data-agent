@@ -2,6 +2,10 @@
 
 Natural language interface for analyzing CloudWalk transaction data. Query business KPIs using plain English, powered by OpenAI and built with FastAPI + Next.js.
 
+## Presentation
+
+https://github.com/Luishv551/data-agent/blob/main/CloudWalk_Data_Agent.pdf
+
 ## Features
 
 - **Natural Language Queries**: Ask questions like "What was the TPV for the last 3 days?" or "Which product has the highest average ticket?"
