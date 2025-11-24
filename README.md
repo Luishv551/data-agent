@@ -4,7 +4,11 @@ Natural language interface for analyzing CloudWalk transaction data. Query busin
 
 ## Presentation
 
-https://github.com/Luishv551/data-agent/blob/main/CloudWalk_Data_Agent.pdf
+https://drive.google.com/file/d/1RKzqUDYGQtJZUqPU-gya2qvkDIhYXaug/view?usp=drive_link
+
+## Usage Examples
+
+https://drive.google.com/drive/folders/1bvhTNTmRkn6BFMVHGGVpiY7A_TZhZvQi?usp=drive_link
 
 ## Features
 
