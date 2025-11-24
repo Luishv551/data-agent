@@ -76,7 +76,7 @@ python -m venv .venv
 pip install uv
 
 # Install dependencies
-uv add fastapi "uvicorn[standard]" pandas openai pydantic-settings python-dotenv
+uv sync
 
 # Configure environment
 echo "OPENAI_API_KEY=your_key_here" > .env
